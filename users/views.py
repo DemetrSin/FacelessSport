@@ -27,6 +27,17 @@ def home(request):
     return render(request, 'home.html')
 
 
+def login(request):
+    return oauth.auth0.authorize_redirect(
+        request, request.build_absolute_uri(reverse("callback"))
+    )
+
+
+def logout(request):
+    request.session.clear()
+    return redirect('home')
+
+
 class CallbackView(View):
     def get(self, request):
         token = oauth.auth0.authorize_access_token(request)
@@ -60,12 +71,5 @@ class CallbackView(View):
         return user
 
 
-def login(request):
-    return oauth.auth0.authorize_redirect(
-        request, request.build_absolute_uri(reverse("callback"))
-    )
-
-
-def logout(request):
-    request.session.clear()
-    return redirect('home')
+class UserProfileView():
+    pass
