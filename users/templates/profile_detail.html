@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ profile.username }}'s Profile</h1>
+  <p>Country: {{ profile.country }}</p>
+  <p>Age: {{ profile.age }}</p>
+  <p>Number: {{ profile.number }}</p>
+  <p>Sport: {{ profile.sport }}</p>
+  <p>Telegram: {{ profile.telegram }}</p>
+  <p>Viber: {{ profile.viber }}</p>
+  <p>WhatsApp: {{ profile.whatsapp }}</p>
+  <p>Signal: {{ profile.signal }}</p>
+  <p>LinkedIn: <a href="{{ profile.linkedin }}">{{ profile.linkedin }}</a></p>
+  <p>YouTube: <a href="{{ profile.youtube }}">{{ profile.youtube }}</a></p>
+  <p>TikTok: <a href="{{ profile.tiktok }}">{{ profile.tiktok }}</a></p>
+  <p>Instagram: <a href="{{ profile.instagram }}">{{ profile.instagram }}</a></p>
+  <p>Facebook: <a href="{{ profile.facebook }}">{{ profile.facebook }}</a></p>
+  <p>Twitter: <a href="{{ profile.twitter }}">{{ profile.twitter }}</a></p>
+  <a href="{% url 'profile_update' %}">Edit Profile</a>
+{% endblock %}

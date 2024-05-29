@@ -11,6 +11,8 @@ class CustomUser(AbstractUser):
 
 
 class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
+    username = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     age = models.PositiveSmallIntegerField(blank=True, null=True)
     number = models.CharField(max_length=100, blank=True, null=True)

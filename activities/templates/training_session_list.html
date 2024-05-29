@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user.name }}'s Training Sessions</h1>
+<ul>
+    {% for session in training_sessions %}
+        <li>
+            <a href="{% url 'session_detail' session.pk %}">
+                {{ session.title }} - {{ session.date }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'training_session_create' %}" class="btn btn-primary">Create New Training Session</a>
+{% endblock %}

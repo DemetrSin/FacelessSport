@@ -23,7 +23,9 @@
             <div class="ml-auto">
                 <div class="btn-group">
                     {% if user.is_authenticated %}
-                        <!-- Logout button -->
+                        <!-- Profile, Trainings, and Logout buttons -->
+                        <a class="btn btn-secondary" href="{% url 'training_session_list' %}">Trainings</a>
+                        <a class="btn btn-secondary" href="{% url 'profile_detail' %}">Profile</a>
                         <a class="btn btn-secondary" href="{% url 'logout' %}">Logout</a>
                     {% else %}
                         <!-- Login button -->
@@ -35,8 +37,14 @@
     </nav>
 
     <!-- Your content goes here -->
-    {% block content %}{% endblock %}
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
 
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+        <!-- Ensure Bootstrap JavaScript is loaded properly -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    {% endblock %}
 </body>
 </html>

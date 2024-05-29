@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ session.title }}</h1>
+<p>Date: {{ session.date }}</p>
+<p>Notes: {{ session.notes }}</p>
+<p>Type: {{ session.get_session_type_display }}</p>
+
+{% if session.session_type == 'run' %}
+    <h2>Run Details</h2>
+    <p>Distance: {{ run.distance_meters }} meters</p>
+    <p>Duration: {{ run.duration_minutes }} minutes</p>
+    <p>Average Speed: {{ run.average_speed }} km/h</p>
+{% else %}
+    <h2>Exercises</h2>
+    <ul>
+        {% for exercise in exercises %}
+            <li>
+                {{ exercise.exercise_name }}: {{ exercise.sets }} sets, {{ exercise.reps }} reps
+                {% if exercise.weight %}
+                    , Weight: {{ exercise.weight }} kg
+                {% endif %}
+                {% if exercise.additional_weight %}
+                    , Additional Weight: {{ exercise.additional_weight }} kg
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <!-- Add Exercise Button -->
+    <a href="{% url 'exercise_create' session.id %}" class="btn btn-secondary">Add Exercise</a>
+{% endif %}
+
+<!-- Create New Training Session Button -->
+<a href="{% url 'training_session_create' %}" class="btn btn-primary">Create New Training Session</a>
+{% endblock %}

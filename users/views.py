@@ -4,7 +4,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login as django_login
 from django.views import View
-from .models import CustomUser
+from .models import CustomUser, UserProfile
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, UpdateView
+from .forms import UserProfileForm
 
 oauth = OAuth()
 
@@ -68,8 +72,24 @@ class CallbackView(View):
                 email=email,
                 auth0_id=auth0_id
             )
+            UserProfile.objects.create(user=user)
         return user
 
 
-class UserProfileView():
-    pass
+class UserProfileDetailView(DetailView):
+    model = UserProfile
+    template_name = 'profile_detail.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        return get_object_or_404(UserProfile, user=self.request.user)
+
+
+class UserProfileUpdateView(UpdateView):
+    model = UserProfile
+    form_class = UserProfileForm
+    template_name = 'profile_update.html'
+    success_url = reverse_lazy('profile_detail')
+
+    def get_object(self):
+        return get_object_or_404(UserProfile, user=self.request.user)
